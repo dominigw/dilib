@@ -22,5 +22,5 @@ This project manages a digital library catalog, tracking books, authors, and use
 4. Access the local database console in your browser at: `http://localhost:8080/h2-console`
 
 ## 🧪 Testing the API
-* A pre-configured **Postman Collection** is included in the root directory (`LibVerse.postman_collection.json`).
+* A pre-configured **Postman Collection** is included in the root directory (`dilib.postman_collection.json`).
 * Simply import this file into Postman to instantly access all pre-made requests (Login, Register, Borrow, Return) with correct endpoint paths.
