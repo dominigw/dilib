@@ -3,7 +3,6 @@ package com.example.dilib.controller;
 import com.example.dilib.model.Book;
 import com.example.dilib.repository.BookRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BookControllerIntegrationTest {
+public class BookControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,8 +36,7 @@ public class BookControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("Should save a new book and then retrieve it")
-    void createAndGetBook_IntegrationFlow() throws Exception {
+    void postBook_ValidInput_GetSavedBook() throws Exception {
 
         Book newBook = new Book();
         newBook.setTitle("The Art Of Integrating");
@@ -61,8 +59,7 @@ public class BookControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("Integration: Should return standard HTTP 404 JSON when fetching non-existent book")
-    void getBookById_NotFound_ReturnsStructuredJson() throws Exception {
+    void getBookById_DoesntExists_Returns404() throws Exception {
 
         mockMvc.perform(get("/api/books/9999"))
                 .andExpect(status().isNotFound())

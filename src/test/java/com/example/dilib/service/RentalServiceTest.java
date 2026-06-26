@@ -7,7 +7,6 @@ import com.example.dilib.model.RentalStatus;
 import com.example.dilib.repository.BookRepository;
 import com.example.dilib.repository.RentalRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -44,8 +43,7 @@ class RentalServiceTest {
     }
 
     @Test
-    @DisplayName("Should successfully borrow a book")
-    void borrowBook_Success() {
+    void borrowBook_ValidInput_ReturnsSavedRental() {
 
         Long userId = 101L;
         Long bookId = 1L;
@@ -67,8 +65,7 @@ class RentalServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw ResourceNotFoundException when book does not exist")
-    void borrowBook_BookNotFound() {
+    void borrowBook_DoesntExists_ThrowsException() {
 
         Long userId = 101L;
         Long bookId = 99L;
@@ -84,8 +81,7 @@ class RentalServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw IllegalStateException when book is out of stock")
-    void borrowBook_OutOfStock() {
+    void borrowBook_OutOfStock_ThrowsException() {
 
         Long userId = 101L;
         Long bookId = 1L;

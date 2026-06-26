@@ -1,5 +1,6 @@
 package com.example.dilib.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,6 @@ public class Author {
     private String biography;
 
     @ManyToMany(mappedBy = "authors")
+    @JsonBackReference
     private Set<Book> books = new HashSet<>();
 }
