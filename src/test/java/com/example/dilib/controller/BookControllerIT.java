@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
+
+import java.util.HashSet;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -36,17 +39,49 @@ public class BookControllerIT {
     }
 
     @Test
-    void postBook_ValidInput_GetSavedBook() throws Exception {
+    void getBooks_Unauthenticated_Success() throws Exception {
+        mockMvc.perform(get("/api/books"))
+                .andExpect(status().isOk());
+    }
 
-        Book newBook = new Book();
-        newBook.setTitle("The Art Of Integrating");
-        newBook.setIsbn("9780261102774");
-        newBook.setGenre("Comedy");
-        newBook.setAvailableCopies(4);
+    @Test
+    void postBook_Unauthenticated_Returns401() throws Exception {
+        Book newBook = new Book(null, "5846253178546", "Da book", "Fantasy", 4, new HashSet<>());
 
         mockMvc.perform(post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newBook)))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @WithMockUser(roles = "USER")
+    void postBook_RegularUser_Returns403() throws Exception {
+        Book newBook = new Book(null, "5846253178546", "Da book", "Fantasy", 4, new HashSet<>());
+
+        mockMvc.perform(post("/api/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(newBook)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void postBook_ValidInput_GetSavedBook() throws Exception {
+
+        String bookJson = """
+                {
+                    "isbn": "9780261102774",
+                    "title": "The Art Of Integrating",
+                    "genre": "Comedy",
+                    "availableCopies": 4,
+                    "authorIds": []
+                }
+                """;
+
+        mockMvc.perform(post("/api/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(bookJson))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.title", is("The Art Of Integrating")))
