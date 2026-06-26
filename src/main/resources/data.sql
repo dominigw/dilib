@@ -15,4 +15,4 @@ INSERT INTO book_author (book_id, author_id)
 VALUES (2, 2);
 
 INSERT INTO users (username, password, role) VALUES ('normal', '$2a$10$X59uNiA6W6mQ8pGTh0gNLeZ9b6W9M6R6Kx8A7R7w5v7z8Yx8m6m6.', 'USER');
-INSERT INTO users (username, password, role) VALUES ('admin', '$2a$10$X59uNiA6W6mQ8pGTh0gNLeZ9b6W9M6R6Kx8A7R7w5v7z8Yx8m6m6.', 'ADMIN');
+INSERT INTO users (username, password, role) VALUES ('admin', '$2a$10$M1ZPjwbSx.RaqQlwGesNle3zxwIZCSEissxwGrdPaVrTX3NlMgvp2', 'ADMIN');

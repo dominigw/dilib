@@ -1,0 +1,324 @@
+{
+  "info": {
+    "_postman_id": "d458adae-2818-42e6-b6dc-7c4cb0d3f5ca",
+    "name": "dilib",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56198602",
+    "_collection_link": "https://go.postman.co/collection/56198602-d458adae-2818-42e6-b6dc-7c4cb0d3f5ca?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "register",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful POST request\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "postman-echo.com/post",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "post"
+          ]
+        },
+        "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+      },
+      "response": []
+    },
+    {
+      "name": "login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "\r",
+              "if (response.token) {\r",
+              "    pm.environment.set(\"jwt_token\", response.token);\r",
+              "    console.log(\"JWT Token safely captured and saved to environment!\");\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"username\": \"testUser\",\r\n    \"password\": \"password\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "loginAdmin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "\r",
+              "if (response.token) {\r",
+              "    pm.environment.set(\"jwt_token\", response.token);\r",
+              "    console.log(\"JWT Token safely captured and saved to environment!\");\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getBooks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/books",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getBookById",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/books/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "postBooks",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"isbn\": \"485612354851\",\r\n    \"title\": \"test Book\",\r\n    \"genre\": \"Romance\",\r\n    \"availableCopies\": 4,\r\n    \"authorsIds\": []\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/books",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "borrowBook",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/rentals/borrow?userId=1&bookId=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "rentals",
+            "borrow"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "1",
+              "type": "text"
+            },
+            {
+              "key": "bookId",
+              "value": "1",
+              "type": "text"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getRentalForUser",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/rentals/user/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "rentals",
+            "user",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/rentals/1/return",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "rentals",
+            "1",
+            "return"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
